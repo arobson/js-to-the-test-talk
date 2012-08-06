@@ -1,0 +1,57 @@
+				section
+					section
+						h1 Please Enjoy Some Proof
+						img(src='images/pudding.jpeg')
+
+					section
+						h1 Scenario
+						ul
+							li We have a list of talk titles with their speakers
+							li We have a simple form for adding new talks
+							li The form's submit button should be disabled if:
+							ul
+								li - The title entered already existed
+								li - The title or speaker is empty
+
+					section
+						h1 Adding a speaker
+						pre: code.javascript(contentEditable='true').
+							$( "#form #add" ).on( "click", function() {
+								var 
+									$title = $( "#form #title" ),
+									$speaker = $( "#form #speaker" ),
+									title = $title.val().trim(),
+									speaker = $speaker.val().trim(),
+									$list = $( "#list" ),
+									$dt = $( "&lt;dt&gt;" + title + "&lt;/dt&gt;" ),
+									$dd = $( "&lt;dd&gt;" + speaker + "&lt;/dd&gt;" );
+								
+								$list.append( $dt );
+								$list.append( $dd );
+								$title.val("");
+								$speaker.val("");
+							} );
+
+					section
+						h1 Enable / Disable Add
+						pre: code.javascript(contentEditable='true').
+							$( "#form" ).on( "keyup", function() {
+								var $form = $( "#form" ),
+									$list = $( "#list" ),
+									$add = $form.find( "#add" ),
+									newTitle = $form.find( "#title" ).val().trim(),
+									newSpeaker = $form.find( "#speaker" ).val().trim(),
+									blankTitle = newTitle === "" || !newTitle,
+									blankSpeaker = newSpeaker === "" || !newSpeaker,
+									titles = $list.find( "dt" )
+												.map( function() { return $(this).text(); } )
+												.get();
+									duplicate = _.any( titles, function( title ) { 
+										return title === newTitle;
+									} );
+								if( duplicate || blankTitle || blankSpeaker) {
+									$add.attr( "disabled", "disabled" );
+								} else {
+									$add.removeAttr( "disabled" );
+								}
+							} );​
