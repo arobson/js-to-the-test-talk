@@ -1,5 +1,5 @@
 // Load the main reveal.js script
-head.js( '/ext/js/reveal.js', function() {
+head.js( '/reveal/js/reveal.js', function() {
 	// Parse the query string into a key/value object
 	var query = {};
 
@@ -45,14 +45,10 @@ head.js( '/ext/js/reveal.js', function() {
 } );
 
 // Load third party scripts
-head.js( '/ext/lib/js/classList.js' );
-//head.js( '/ext/lib/js/highlight.js', function() {
-	// Fire off syntax highlighting for potential code samples in the slides
-	// hljs.initHighlightingOnLoad();
-//} );
+head.js( '/reveal/lib/js/classList.js' );
 
 // If we're runnning the notes server we need to include some additional JS
 // TODO Is there a better way to determine if we're running the notes server?
 if( window.location.host === 'localhost:1947' ) {
-	head.js( 'socket.io/socket.io.js', 'plugin/speakernotes/client.js' );
+	head.js( 'plugin/speakernotes/client.js' );
 }
