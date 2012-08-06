@@ -15,7 +15,7 @@
 
 					section
 						h1 Adding a speaker
-						pre: code.javascript(contentEditable='true').
+						pre: code(style="width:100%").
 							$( "#form #add" ).on( "click", function() {
 								var 
 									$title = $( "#form #title" ),
@@ -34,7 +34,7 @@
 
 					section
 						h1 Enable / Disable Add
-						pre: code.javascript(contentEditable='true').
+						pre: code(style="width:100%").
 							$( "#form" ).on( "keyup", function() {
 								var $form = $( "#form" ),
 									$list = $( "#list" ),
@@ -55,3 +55,30 @@
 									$add.removeAttr( "disabled" );
 								}
 							} );​
+					section
+						h2 Demo
+						iframe(style="width: 100%; height: 100%",src="http://jsfiddle.net/a_robson/NfVT2/3/embedded/result",allowfullscreen="allowfullscreen",frameborder="0")
+					section
+						div
+							h3 The Good
+							ul
+								li Short code listing ~ 33 LoC
+						br
+						br
+						div.fragment
+							h2 The Bad
+							ul
+								li Tightly coupled to the DOM
+								li Tightly coupled to jQuery
+						br
+						br
+						div.fragment
+							h1 The Ugly
+							ul
+								li Hard to understand the behavior
+								li Writing and maintaining tests
+					section
+						h1 As you may have surmised...
+						h2.fragment
+							q My heart hates uggos
+							p - J.D. on Scrubs
