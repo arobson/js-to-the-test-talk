@@ -6,16 +6,16 @@
 							li Factor out DOM interaction
 							li Focus on behavior
 					section
-						h2 List Component
-						pre: code(style="width:100%").
+						h3 List Component
+						pre: code(style="width:100%; height: 550px").
 							var List = function( selector ) {
 								var $el = $( selector ),
 									$list = $el.find( "#list" );
 								
 								return {
 									add: function( title, speaker ) {
-										var $dt = $( "<dt>" + title + "</dt>" );
-										var $dd = $( "<dd>" + speaker + "</dd>" );
+										var $dt = $( "&lt;dt&gt;" + title + "&lt;/dt&gt;" );
+										var $dd = $( "&lt;dd&gt;" + speaker + "&lt;/dd&gt;" );
 										$list.append( $dt );
 										$list.append( $dd );
 									},
@@ -28,8 +28,8 @@
 								};
 							};
 					section
-						h2 Form Component
-						pre: code(style="width:100%").
+						h3 Form Component
+						pre: code(style="width:100%; height: 550px").
 							var Form = function( selector ) {
 								var $el = $( selector ),
 									$title = $el.find( "#title" ),
@@ -45,30 +45,32 @@
 									
 									getTitle: function() { return $title.val().trim(); },
 									setTitle: function( value ) { $title.val( value ); },
-									isTitleEmpty: function() { return this.getTitle().trim() === ""; },
-									whenTitleChange: function( handler ) { $title.on( "keyup", handler ); },
+									isTitleEmpty: function() { 
+										return this.getTitle().trim() === ""; 
+									},
+									whenTitleChange: function( handler ) { 
+										$title.on( "keyup", handler ); 
+									},
 
 									getSpeaker: function() { return $speaker.val().trim(); },
 									setSpeaker: function( value ) { $speaker.val( value ); },
-									isSpeakerEmpty: function() { return this.getSpeaker().trim() === ""; },
-									whenSpeakerChange: function( handler ) { $speaker.on( "keyup", handler ); },
+									isSpeakerEmpty: function() { 
+										return this.getSpeaker().trim() === ""; 
+									},
+									whenSpeakerChange: function( handler ) { 
+										$speaker.on( "keyup", handler );
+									},
 
 									disableAdd: function() { $add.attr("disabled","disabled"); },
 									enableAdd: function() { $add.removeAttr("disabled"); },
-									whenAdd: function( handler ) { $add.on( "click", handler ); }
+									whenAdd: function( handler ) { 
+										$add.on( "click", handler ); 
+									}
 								};
-							};
+							};					
 					section
-						h1 Hang in There
-						q But, Alex, we hate you already!
-						p -- Everyone
-						br
-						q It's no sin to trade key strokes, which are cheap, for clarity, which is precious.
-						p -- Garret Smith
-						br: a(href='http://gar1t.com/blog/2012/06/10/solving-embarrassingly-obvious-problems-in-erlang/') Solving Embarrassingly Obvious Problems in Erlang
-					section
-						h2 Behavior
-						pre: code(style="width:100%").
+						h3 Behavior
+						pre: code(style="width:100%; height: 550px").
 							var behavior = function( list, form ) {
 
 								var addItem = function() {
@@ -77,9 +79,7 @@
 								};
 								
 								var validateForm = function() { 
-									var newTitle = form.getTitle(),
-										newSpeaker = form.getSpeaker(),
-										duplicate = _.any( list.getTitles(), function( title ) { 
+									var duplicate = _.any( list.getTitles(), function( title ) { 
 											return title === newTitle;
 										} );
 									if( duplicate || form.isTitleEmpty() || form.isSpeakerEmpty() ) {
@@ -96,10 +96,10 @@
 							
 							var listControl = new List( "div.container" );
 							var formControl = new Form( "div#form" );
-							behavior( listControl, formControl );​
+							behavior( listControl, formControl );
 					section
 						h2 Demo
-						iframe(style="width: 100%; height: 100%",src="http://jsfiddle.net/a_robson/4yR2h/11/embedded/result",allowfullscreen="allowfullscreen",frameborder="0")
+						iframe(style="width: 900px; height: 500px",src="http://jsfiddle.net/a_robson/4yR2h/17/embedded/result",allowfullscreen="allowfullscreen",frameborder="0")
 					section
 						div
 							h3 The Good
@@ -114,8 +114,22 @@
 						div.fragment
 							h2 The Bad
 							ul
-								li MOAR CODE: 75 LoC ( > 100% increase )
+								li MOAR CODE: 77 LoC ( > 100% increase )
 						br
 						br
-						div.fragment
-							h1 And The Good Wins It
+					section
+						h2 And The Good Wins It
+						ul
+							li: h3 Decoupled
+								ul
+									li Distinct components
+									li Isolated dependencies	
+							li: h3 Clear
+								ul
+									li Clear responsibilities
+									li Less cluttered
+									li Intent aligns with components
+							li: h3 Maintainable
+								ul
+									li Changes isolated by component
+									li Easy to provide stub implementations
