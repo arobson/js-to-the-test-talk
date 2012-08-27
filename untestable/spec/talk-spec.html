@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+	<head>
+	  <meta charset="utf-8">
+	  <title>Talk Behavior Spec</title>
+	  <link rel="stylesheet" href="/untestable/spec/qunit.css">
+	  <script src="/untestable/js/lib/jquery.js" ></script>
+		<script src="/untestable/js/lib/underscore.js" ></script>
+	</head>
+	<body>
+	  <div id="qunit"></div>
+	  <script src="/untestable/spec/qunit.js"></script>
+	  <script src="/untestable/js/talk.js"></script>
+	  <script src="/untestable/spec/talk-spec.js"></script>
+
+	  <!-- welcome to the 9th circle of testing hell -->
+		<div style="display: none">
+			<div class="container">
+				<dl id="list">
+				</dl>
+			</div>
+
+			<div id="form">
+				<div>
+					<label for='title'>Title</label>
+					<input id="title" name='title' type='text'/>
+				</div>
+				<div>
+					<label for='speaker'>Speaker</label>
+					<input id="speaker" name='speaker' type='text' />
+				</div>
+				<div>
+					<input type="button" class="button" id="add" value="add" disabled="disabled" />
+				</div>
+			</div>​
+		</div>​
+	</body>
+</html>

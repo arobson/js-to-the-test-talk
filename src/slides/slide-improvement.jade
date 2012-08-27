@@ -1,16 +1,30 @@
 				section
 					section
-						h1 There is a better way
-						h2 What if we:
-						ul
-							li Factor out DOM interaction
-							li Focus on behavior
+						h1 
+							p Requirements of 
+							p Testable Code
+						h2
+							ol 
+								li Clear intent
+								li Distinct components
+								li Decoupled interactions
+								li Isolated dependencies
+					section
+						h2 Steps To Improve Previous Example
+						ol
+							li 
+								| Seperate code into components
+								ul
+									li List
+									li Form
+									li Talk (behavior)
+							li Isolate jQuery dependency from behavior
+							li Seperate the 'what' from the 'how' 
 					section
 						h3 List Component
 						pre: code(style="width:100%; height: 550px").
-							var List = function( selector ) {
-								var $el = $( selector ),
-									$list = $el.find( "#list" );
+							var List = function() {
+								var $list = $( "#list" );
 								
 								return {
 									add: function( title, speaker ) {
@@ -30,9 +44,8 @@
 					section
 						h3 Form Component
 						pre: code(style="width:100%; height: 550px").
-							var Form = function( selector ) {
-								var $el = $( selector ),
-									$title = $el.find( "#title" ),
+							var Form = function() {
+								var $title = $( "#title" ),
 									$speaker = $el.find( "#speaker" ),
 									$add = $el.find( "#add" );
 								
@@ -42,25 +55,16 @@
 										this.setSpeaker( "" );
 										this.disableAdd();            
 									},
-									
 									getTitle: function() { return $title.val().trim(); },
 									setTitle: function( value ) { $title.val( value ); },
-									isTitleEmpty: function() { 
-										return this.getTitle().trim() === ""; 
-									},
 									whenTitleChange: function( handler ) { 
 										$title.on( "keyup", handler ); 
 									},
-
 									getSpeaker: function() { return $speaker.val().trim(); },
 									setSpeaker: function( value ) { $speaker.val( value ); },
-									isSpeakerEmpty: function() { 
-										return this.getSpeaker().trim() === ""; 
-									},
 									whenSpeakerChange: function( handler ) { 
 										$speaker.on( "keyup", handler );
 									},
-
 									disableAdd: function() { $add.attr("disabled","disabled"); },
 									enableAdd: function() { $add.removeAttr("disabled"); },
 									whenAdd: function( handler ) { 
@@ -69,56 +73,48 @@
 								};
 							};					
 					section
-						h3 Behavior
+						h3 Talk Component
 						pre: code(style="width:100%; height: 550px").
-							var behavior = function( list, form ) {
-
+							var Talk = function( list, form ) {
 								var addItem = function() {
 									list.add( form.getTitle(), form.getSpeaker() );
 									form.clear();
 								};
-								
-								var validateForm = function() { 
-									var duplicate = _.any( list.getTitles(), function( title ) { 
+
+								var validateForm = function() {
+									var newTitle = form.getTitle(),
+										newSpeaker = form.getSpeaker(),
+										blankTitle = newTitle === "" || !newTitle,
+										blankSpeaker = newSpeaker === "" || !newSpeaker,
+										duplicate = _.any( list.getTitles(), function( title ) {
 											return title === newTitle;
 										} );
-									if( duplicate || form.isTitleEmpty() || form.isSpeakerEmpty() ) {
+									if( duplicate || blankTitle || blankSpeaker) {
 										form.disableAdd();
 									} else {
 										form.enableAdd();
 									}
 								};
-								
-								form.whenAdd( addItem );
-								form.whenTitleChange( validateForm );
-								form.whenSpeakerChange( validateForm );
+
+								form.whenAdd( "click", addItem );
+								form.whenTitle( "keyup", validateForm );
+								form.whenSpeaker( "keyup", validateForm );
 							};
-							
-							var listControl = new List( "div.container" );
-							var formControl = new Form( "div#form" );
-							behavior( listControl, formControl );
 					section
 						h2 Demo
-						iframe(style="width: 900px; height: 500px",src="http://jsfiddle.net/a_robson/4yR2h/17/embedded/result",allowfullscreen="allowfullscreen",frameborder="0")
+						iframe(style="width: 900px; height: 500px",src="/testable/",allowfullscreen="allowfullscreen",frameborder="0")
 					section
 						div
-							h3 The Good
-							ul
-								li DOM interaction is encapsulated
-								li jQuery API seperated from logic
-								li Easy to understand the behavior
-								li Easy to write tests against
-								li Easy to maintain and refactor
-						br
-						br
-						div.fragment
 							h2 The Bad
 							ul
-								li MOAR CODE: 77 LoC ( > 100% increase )
-						br
-						br
+								li MOAR CODE: 71 LoC ( almost a 100% increase )
+							br
+							br
+							div.fragment
+								blockquote it’s no sin to trade key strokes, which are cheap, for clarity, which is precious
+								p: small Garret Smith a.k.a The Smartest Developer Alive
 					section
-						h2 And The Good Wins It
+						h2 The Good
 						ul
 							li 
 								h3 Decoupled
@@ -129,10 +125,7 @@
 								h3 Clear
 								ul
 									li Clear responsibilities
-									li Less cluttered
-									li Intent aligns with components
 							li
 								h3 Maintainable
 								ul
 									li Changes isolated by component
-									li Easy to provide stub implementations

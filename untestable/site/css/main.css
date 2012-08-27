@@ -1,0 +1,39 @@
+body {
+	font-size: 1.5em;
+	color: white;
+	font-family: 'helvetica';
+}
+
+div {
+	margin: .5em;
+}
+
+dd {
+	margin-bottom: .5em;        
+}
+
+.container {
+	margin-left: 4em;
+	padding: .5em 1em;
+	width: 20em;
+	border: white .25em solid;
+}
+
+input {
+	border: black .125em solid;
+	font-size: .75em;
+	font-family: 'helvetica';
+	margin: .5em 1em .5em .5em;
+}
+
+label {
+	display: inline-block;
+	text-align: right;
+	width: 5em;
+}
+
+.button {
+	border: black .125em solid;
+	padding: .25em 1em .25em 1em;
+	margin: 2em 5em 6em 5.5em;
+}

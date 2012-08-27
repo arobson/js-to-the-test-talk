@@ -5,7 +5,11 @@
 		"paths": {
 			"/reveal": "./reveal",
 			"/ace": "./ace",
-			"/": "./presentation"
+			"/": "./presentation",
+			"/testable": "./testable/site",
+			"/testable/spec": "./testable/spec",
+			"/untestable": "./untestable/site",
+			"/untestable/spec": "./untestable/spec"
 		}
 	},
 	"combiner": {
