@@ -12,15 +12,6 @@
 			"/untestable/spec": "./untestable/spec"
 		}
 	},
-	"combiner": {
-		"patterns": [
-			{
-				"extensions": [ ".jade" ],
-				"find": "/import.?'.*'.?/g",
-				"replace": "/([ \t]*)import.?'replace'.?/g"
-			}
-		]
-	},
 	"dependencies": [
 		"anvil.http",
 		"anvil.jade"
